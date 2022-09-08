@@ -16,22 +16,23 @@
   <meta name="author" content="ZRay">
   <meta name="keywords" content="">
   
-    <meta name="description" content="目录 a&#x3D;αβa &#x3D; \alpha^{\beta}a&#x3D;αβ">
+    <meta name="description" content="浮光掠影的引子">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度强化学习碎碎念--上篇">
+<meta property="og:title" content="深度强化学习万字碎碎念--上篇">
 <meta property="og:url" content="https://zray111.github.io/2022/09/07/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%A2%8E%E7%A2%8E%E5%BF%B5-%E4%B8%8A%E7%AF%87/index.html">
 <meta property="og:site_name" content="ZRay的空间">
-<meta property="og:description" content="目录 a&#x3D;αβa &#x3D; \alpha^{\beta}a&#x3D;αβ">
+<meta property="og:description" content="浮光掠影的引子">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-07T11:06:53.000Z">
-<meta property="article:modified_time" content="2022-09-07T11:49:05.867Z">
+<meta property="article:modified_time" content="2022-09-08T04:00:00.000Z">
 <meta property="article:author" content="ZRay">
 <meta property="article:tag" content="原创">
+<meta property="article:tag" content="科研">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>深度强化学习碎碎念--上篇 - ZRay的空间</title>
+  <title>深度强化学习万字碎碎念--上篇 - ZRay的空间</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="深度强化学习碎碎念--上篇"></span>
+            <span id="subtitle" data-typed-text="深度强化学习万字碎碎念--上篇"></span>
           
         </div>
 
@@ -238,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          26 字
+          1.7k 字
         
       </span>
     
@@ -249,7 +250,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -295,13 +296,37 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">深度强化学习碎碎念--上篇</h1>
+            <h1 style="display: none">深度强化学习万字碎碎念--上篇</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 目录</h1>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>=</mo><msup><mi>α</mi><mi>β</mi></msup></mrow><annotation encoding="application/x-tex">a = \alpha^{\beta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8491079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05278em;">β</span></span></span></span></span></span></span></span></span></span></span></span></p>
+                <h1 id="深度强化学习万字碎碎念上篇"><a class="markdownIt-Anchor" href="#深度强化学习万字碎碎念上篇"></a> 深度强化学习万字碎碎念–上篇</h1>
+<blockquote>
+<p>跟深度强化学习 (Deep Reinforcement Learning, DRL) 相爱相杀已经四年了，如果把本科毕业设计那半年也算上就有四年半了，放在科研这种“长途旅行”上也算是有一段时间了。得承认，一开始的少年总是心比天高，想要做出些地动天惊的科研突破，后来嘛，总归是要被重力拉回地面的。扯这几句是想说，DRL于我，更多的像是一种解决问题的工具，我在学习这个“工具”的过程中走过弯路踩过坑，也用这个“工具”解决了一些问题，回头望去，还是有些想法的，所以想记录一下，就算是科研回忆录吧。本系列文章计划包含三篇：《上篇》会试图用简洁的语言描述出DRL的轮廓；《中篇》会试图简明扼要地讲述一些重要的DRL算法；《下篇》会分享一些我在实践过程中的“个人经验”。与本系列文章相辅相成的是我站在巨人们 (Cart-Park, MrSyee, ElegantRL“小雅”等) 的肩膀上根据个人需求、习惯写的一个DRL项目，<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL">ZRayRL (https://github.com/ZhangRui111/ZRayRL)</a>。最后，欢迎项目共建，欢迎文章讨论，转载请注明出处。</p>
+</blockquote>
+<h2 id="1-从监督学习到强化学习再到深度强化学习"><a class="markdownIt-Anchor" href="#1-从监督学习到强化学习再到深度强化学习"></a> 1. 从监督学习到强化学习再到深度强化学习</h2>
+<p>近十年来，“人工智能” (Artificial Intelligence, AI) 已经从一个有些神秘感的词汇变为随处可见乃至于被滥用的词汇，类似的还有“机器学习” (Machine Learning, ML) 跟“深度学习” (Deep Learning, DL)。在许多不甚严格的语境里不区分这些概念倒也无伤大雅，不过实际上，这几个概念并不是等价的。这里我采用相对主流的方式对这几个概念进行区分，以帮助读者建立一个有层次感的相对准确的认知。“人工智能”也就是为人造物，或者说为机器赋予人类一般的智能。最终极的目标是实现“强人工智能”，又叫“通用人工智能”，“强人工智能”应当可以像人一样进行自主思考，胜任多种任务。目前我们所能看到的成果，无论是图像识别<a href="#imagenet"><sup>[1]</sup></a><a href="#resnet"><sup>[2]</sup></a>，游戏AI<a href="#alphago"><sup>[3]</sup></a>，机器翻译<a href="#bert"><sup>[4]</sup></a>，都属于“弱人工智能”，可以在某些特定任务上达到人类的水平甚至有着超越人类的表现，但距离“强人工智能”依然很遥远。“机器学习”是实现人工智能的一种方法，言外之意也就是说“机器学习”并不是实现人工智能的唯一一种方法。机器学习的主要特征在于用“算法”来从“数据”中进行学习。而“深度学习”则是实现“机器学习”的一种技术，其主要特征在于利用深度神经网络 (Deep Neural Network, DNN) 来实现对大规模数据的分析和学习。综上，三者的关系是如下图所示的包含关系，即：人工智能 &gt; 机器学习 &gt; 深度学习。</p>
+<div style="width:50%;margin:auto"></div>
+<h2 id="2-强化学习在试错中学习-trial-and-error"><a class="markdownIt-Anchor" href="#2-强化学习在试错中学习-trial-and-error"></a> 2. 强化学习：在试错中学习 (trial and error)</h2>
+<h2 id="3-殊途同归的两条路线价值函数跟策略函数"><a class="markdownIt-Anchor" href="#3-殊途同归的两条路线价值函数跟策略函数"></a> 3. 殊途同归的两条路线：价值函数跟策略函数</h2>
+<h2 id="参考-reference"><a class="markdownIt-Anchor" href="#参考-reference"></a> 参考 (Reference)</h2>
+<div id="imagenet"></div>
+<ul>
+<li>[1] Deng, Jia, et al. “Imagenet: A large-scale hierarchical image database.” 2009 IEEE conference on computer vision and pattern recognition. Ieee, 2009.</li>
+</ul>
+<div id="resnet"></div>
+<ul>
+<li>[2] He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.</li>
+</ul>
+<div id="alphago"></div>
+<ul>
+<li>[3] Silver, David, et al. “Mastering the game of Go with deep neural networks and tree search.” nature 529.7587 (2016): 484-489.</li>
+</ul>
+<div id="bert"></div>
+<ul>
+<li>[4] Devlin, Jacob, et al. “Bert: Pre-training of deep bidirectional transformers for language understanding.” arXiv preprint arXiv:1810.04805 (2018).</li>
+</ul>
 
                 
               </div>
@@ -320,8 +345,22 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度强化学习</a>
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度强化学习</a>
+  
+  
+
+  
+
   
 
       </span>
@@ -337,6 +376,8 @@
       
         <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
       
+        <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
+      
     </div>
   
 </div>
@@ -347,7 +388,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>深度强化学习碎碎念--上篇</div>
+      <div>深度强化学习万字碎碎念--上篇</div>
       <div>https://zray111.github.io/2022/09/07/深度强化学习碎碎念-上篇/</div>
     </div>
     <div class="license-meta">
