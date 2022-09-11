@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/imgs/q_learning.png">
 <meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/imgs/policy.png">
 <meta property="article:published_time" content="2022-09-11T04:02:10.000Z">
-<meta property="article:modified_time" content="2022-09-11T08:01:06.400Z">
+<meta property="article:modified_time" content="2022-09-11T11:29:35.462Z">
 <meta property="article:author" content="ZRay">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="科研">
@@ -309,7 +309,7 @@
                 
                 <h1 id="深度强化学习从入门到秃头上篇"><a class="markdownIt-Anchor" href="#深度强化学习从入门到秃头上篇"></a> 深度强化学习从入门到秃头–上篇</h1>
 <blockquote>
-<p>跟深度强化学习 (Deep Reinforcement Learning, DRL) 相爱相杀已经四年了，如果把本科毕业设计那半年也算上就有四年半了，放在科研这种“长途旅行”上也算是有一段时间了。DRL于我，更多的像是一种解决问题的工具，我在学习这个“工具”的过程中走过弯路踩过坑，也用这个“工具”解决了一些问题，回头望去，还是有些想法的，所以想记录一下，就算是科研回忆录吧。本系列文章计划包含三篇：<a href="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/">《上篇》</a>会试图用简洁的语言描述出DRL的轮廓；《中篇》会试图简明扼要地讲述一些重要的DRL算法；《下篇》会分享一些我在实践过程中的“个人经验”。与本系列文章相辅相成的是我站在巨人们 (Cart-Park, MrSyee, ElegantRL“小雅”等) 的肩膀上根据个人需求、习惯写的一个DRL项目，<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL">ZRayRL (https://github.com/ZhangRui111/ZRayRL)</a>。最后，欢迎项目共建，欢迎文章讨论，转载请注明出处。</p>
+<p>跟深度强化学习 (Deep Reinforcement Learning, DRL) 相爱相杀已经四年了，如果把本科毕业设计那半年也算上就有四年半了，放在科研这种“长途旅行”上也算是有一段时间了。DRL于我，更多的像是一种解决问题的工具，我在学习这个“工具”的过程中走过弯路踩过坑，也用这个“工具”解决了一些问题，回头望去，还是有些想法的，所以想记录一下，就算是科研回忆录吧。本系列文章计划包含三篇：<a href="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/">《上篇》</a>会试图用简洁的语言描述出DRL的轮廓；《中篇》会试图简明扼要地讲述一些重要的DRL算法；<a href="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/">《下篇》</a>会分享一些我在实践过程中的“个人经验”。与本系列文章相辅相成的是我站在巨人们 (Cart-Park, MrSyee, ElegantRL“小雅”等) 的肩膀上根据个人需求、习惯写的一个DRL项目，<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL">ZRayRL (https://github.com/ZhangRui111/ZRayRL)</a>。最后，欢迎项目共建，欢迎文章讨论，转载请注明出处。</p>
 </blockquote>
 <h2 id="1-从监督学习到强化学习再到深度强化学习"><a class="markdownIt-Anchor" href="#1-从监督学习到强化学习再到深度强化学习"></a> 1. 从监督学习到强化学习再到深度强化学习</h2>
 <p>近十年来，“人工智能” (Artificial Intelligence, AI) 已经从一个有些神秘感的词汇变为随处可见乃至于被滥用的词汇，类似的还有“机器学习” (Machine Learning, ML) 跟“深度学习” (Deep Learning, DL)。在许多不甚严格的语境里不区分这些概念倒也无伤大雅，不过实际上，这几个概念并不是等价的。这里我采用相对主流的方式对这几个概念进行区分，以帮助读者建立一个有层次感的相对准确的认知。“人工智能”也就是为人造物，或者说为机器赋予人类一般的智能。最终极的目标是实现“强人工智能”，又叫“通用人工智能”，“强人工智能”应当可以像人一样进行自主思考，胜任多种任务。目前我们所能看到的成果，无论是图像识别<a href="#imagenet"><sup>[1]</sup></a><a href="#resnet"><sup>[2]</sup></a>，游戏AI<a href="#alphago"><sup>[3]</sup></a><a href="#dqn_nature"><sup>[4]</sup></a>，机器翻译<a href="#bert"><sup>[5]</sup></a>，都属于“弱人工智能”，可以在某些特定任务上达到人类的水平甚至有着超越人类的表现，但距离“强人工智能”依然很遥远。“机器学习”是实现人工智能的一种方法，言外之意也就是说“机器学习”并不是实现人工智能的唯一一种方法。机器学习的主要特征在于用“算法”来从“数据”中进行学习。而“深度学习”则是实现“机器学习”的一种技术，其主要特征在于利用深度神经网络 (Deep Neural Network, DNN) 来实现对大规模数据的分析和学习。综上，三者的关系是如下图所示的包含关系，即：人工智能 &gt; 机器学习 &gt; 深度学习。</p>
