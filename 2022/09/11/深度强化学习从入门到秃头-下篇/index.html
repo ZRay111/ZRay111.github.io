@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.jpg">
+  <link rel="icon" href="/img/fluid.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZRay">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="似是荒唐言，谁解其中味">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度强化学习从入门到秃头--下篇">
+<meta property="og:url" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/index.html">
+<meta property="og:site_name" content="ZRay的空间">
+<meta property="og:description" content="似是荒唐言，谁解其中味">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/imgs/grf.png">
+<meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/imgs/limited_connection.png">
+<meta property="article:published_time" content="2022-09-11T10:39:31.000Z">
+<meta property="article:modified_time" content="2022-09-11T11:18:31.141Z">
+<meta property="article:author" content="ZRay">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/imgs/grf.png">
+  
+  
+  
+  <title>深度强化学习从入门到秃头--下篇 - ZRay的空间</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.6/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zray111.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"WVtRgJMmrXec24ZpDhSPOyVX-gzGzoHsz","app_key":"Xi5CghXDNJYmFDkEENPyopre","server_url":"https://wvtrgjmm.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ZRay的空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="深度强化学习从入门到秃头--下篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-11 18:39" pubdate>
+          2022年9月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          86 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">深度强化学习从入门到秃头--下篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="深度强化学习从入门到秃头下篇"><a class="markdownIt-Anchor" href="#深度强化学习从入门到秃头下篇"></a> 深度强化学习从入门到秃头–下篇</h1>
+<blockquote>
+<p>跟深度强化学习 (Deep Reinforcement Learning, DRL) 相爱相杀已经四年了，如果把本科毕业设计那半年也算上就有四年半了，放在科研这种“长途旅行”上也算是有一段时间了。DRL于我，更多的像是一种解决问题的工具，我在学习这个“工具”的过程中走过弯路踩过坑，也用这个“工具”解决了一些问题，回头望去，还是有些想法的，所以想记录一下，就算是科研回忆录吧。本系列文章计划包含三篇：<a href="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/">《上篇》</a>会试图用简洁的语言描述出DRL的轮廓；《中篇》会试图简明扼要地讲述一些重要的DRL算法；《下篇》会分享一些我在实践过程中的“个人经验”。与本系列文章相辅相成的是我站在巨人们 (Cart-Park, MrSyee, ElegantRL“小雅”等) 的肩膀上根据个人需求、习惯写的一个DRL项目，<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL">ZRayRL (https://github.com/ZhangRui111/ZRayRL)</a>。最后，欢迎项目共建，欢迎文章讨论，转载请注明出处。</p>
+</blockquote>
+<h2 id="写在前面"><a class="markdownIt-Anchor" href="#写在前面"></a> 写在前面</h2>
+<p>本篇包含大量未经严格理论证实的个人实践经验，其合理性并不足够坚固，请在批判性思考的基础上进行参考，同时欢迎评论区交流分享自己的经验。本篇会不定期持续更新，更新内容会以“—”分割并标注更新日期，可以持续关注。</p>
+<h2 id="1-强化学习算法选择"><a class="markdownIt-Anchor" href="#1-强化学习算法选择"></a> 1. 强化学习算法选择</h2>
+<p>当我们需要用强化学习 (reinforcement learning, RL) 来解决某个问题时，首先要考虑的就是选择一个合适的强化学习算法。需要注意的是，目前在强化学习科研社区，关于深度强化学习算法的论文大都在游戏benchmark上进行比较，比如Atari 2600 games<a href="#atari"><sup>[1]</sup></a>，MuJoCo<a href="#mujoco"><sup>[2]</sup></a>等等。这固然是参考了图像识别领域的成熟经验，例如图像分类领域广泛使用的ImageNet<a href="#imagenet"><sup>[3]</sup></a> benchmark，但是，我们也要考虑到有监督学习中的benchmark通常跟应用场景紧密结合，例如，我们不会拿图像分类的算法来解决图像分割的问题，因此其论文中不同算法的比较结果对于实践有较大的参考价值。而强化学习同一种算法可以用来解决许多差异巨大的问题，从游戏AI到资源调度，甚至是目前被有监督学习主导的一些图像识别问题。因此，在应用强化学习到游戏AI之外的场景时，强化学习论文中在游戏benchmark上对不同算法的比较结果有一定参考价值，但并不一定适合当下的具体问题，所以，我们不必迷信论文中的SOTA算法。但是，也得相信科研是整体向上的，在一个较长时间维度上后来的算法在设计上肯定会有其合理性和优越性，因此，在选择强化学习算法时，一个比较稳妥的原则就是：不选择最新的，也不选择很陈旧的，而是选择经受住时间考验的又较为新的算法。结合自己的实践以及<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/342919579">前辈的经验</a>, 现给出如下建议。</p>
+<blockquote>
+<p><strong>省流版</strong>：</p>
+<p>对于离散动作空间的任务，选择<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL/tree/master/algorithms/discrete/D3QN">Double Dueling DQN (D3QN)</a></p>
+<p>对于连续动作空间的任务，选择<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL/tree/master/algorithms/continuous/PPO">PPO</a>，<a target="_blank" rel="noopener" href="https://github.com/ZhangRui111/ZRayRL/tree/master/algorithms/continuous/TD3">TD3</a>。</p>
+</blockquote>
+<ul>
+<li>
+<p>对于离散动作空间的任务</p>
+<p>最经典的算法自然是发表在Nature上的DQN<a href="#dqn"><sup>[4]</sup></a>算法，以DQN为基础衍生出了规模庞大的DQN算法家族，仅比较知名的就有Double DQN<a href="#doubledqn"><sup>[5]</sup></a>，Dueling DQN<a href="#duelingdqn"><sup>[6]</sup></a>，DQN with Prioritized Experience Replay<a href="#pridqn"><sup>[7]</sup></a>, Noisy DQN<a href="#noisydqn"><sup>[8]</sup></a>，DQN with multi-step bootstrap<a href="#dqn_bootstrap"><sup>[9]</sup></a>等，以及DQN算法家族的集大成者Rainbow<a href="#rainbow"><sup>[10]</sup></a>算法，正如其名字所暗示的那样，Rainbow算法集成了和DQN相关的多种改进，从而在当时登顶了DQN算法之最。不过Rainbow在带来提升的同时也极大的提高了算法的复杂性，越复杂的算法意味着越容易出错、越难以维护的代码，而且许多改进对于算法整体表现的提升相对于其带来的额外计算开销，似乎“性价比”并不高；还有一些改进引入了许多较为敏感的超参数，以调试难度的增大为代价来换取算法表现的提升，对于实践经验不足的入门选手不甚友好。因此，考虑到算法的复杂度以及稳定性，比较推荐的是集成了Double DQN，Dueling DQN的Double Dueling DQN (D3QN)算法。</p>
+</li>
+<li>
+<p>对于连续动作空间的任务</p>
+<p>最早的专门针对连续动作空间的深度强化学习算法可能是DDPG<a href="#ddpg"><sup>[11]</sup></a>，DDPG采用的actor-critic框架，但是其思路更偏向于DQN，也可以认为DDPG是DQN为了输出连续动作的一个衍生算法。而TD3<a href="#td3"><sup>[12]</sup></a>则可以看做是DDPG算法的全面升级版，在稳定性跟算法表现上均有不错的提升，因此在实践中完全可以用TD3来取代DDPG。而PPO<a href="#ppo"><sup>[13]</sup></a>也是久经考验的算法了，PPO跟TRPO<a href="#trpo"><sup>[14]</sup></a>有相同的思路，不过PPO在算法复杂度以及计算量上明显具有优势 (顺带一提，TRPO论文的理论细节确实没看懂，(T＿T))。PPO也可以用于解决离散动作空间的任务，不过我没用过，也就不妄加猜测其效果了。跟TD3相比，PPO似乎对于超参数的选择更加宽泛一些，也就是更容易调参。</p>
+</li>
+</ul>
+<h2 id="2-关于reward-function的设计"><a class="markdownIt-Anchor" href="#2-关于reward-function的设计"></a> 2. 关于Reward Function的设计</h2>
+<p>机器学习，尤其是深度学习算法会涉及到许多不同的超参数，超参数的合理设置对于深度模型的成功至关重要。不少从业者会把调参的过程称为“炼丹”，算是个比较形象的比喻。强化学习的从业者或多或少都会了解使用监督学习，个人意见来看，调试一个强化学习模型的难度是要高于监督学习模型的。而且这两者的调试重点也有所不同，监督学习自然是调整各种超参数，比如学习率大小，数据增强方式，优化器参数等。深度强化学习作为深度学习的一种，许多超参数跟监督学习里的一致，不同之处在于，监督学习所依赖的label是客观事物，而深度强化学习所依赖的reward function却需要人为设计，而且就我的实践经验来说，学习率跟reward function是对于强化学习最重要的两个因素 (具体可参照下一章的第二条tip)。Reward function的设计没有固定的模板/定式，需要根据具体的问题和能从环境得到的反馈进行合理设计，因此，十分依赖经验积累，这一过程有一个学术术语叫做“Reward Shaping”。下面我将介绍一种我认为比较好用的reward function设计思路，以供参考。</p>
+<p>我的设计里，reward function分为两部分A和B，这两部分通过一个系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>做一个加权和，即</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>=</mo><mi>A</mi><mo>+</mo><mi>α</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">R = A + \alpha B
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span></span></p>
+<p>其中A部分需要关联到任务的最终目标，我把A称为“global reward”，而B部分则需要着眼每一个动作 (action) 的即时反馈，我把B称为“local reward”。A部分对应的是任务的终极目标，也就是任务成功/失败，在reward function里占据主导地位，理论上，即使没有B部分，A部分也应当具有充分的引导智能体学会解决任务的能力。换句话说，用强化学习解决某个任务时，我们只关注任务的结果有多好，而不关注智能体是怎么一步一步做到的，A部分，即“global reward”就代表了我们的这种倾向。而B部分对应的是每一个动作的即时反馈，也就是对最终结果之前的每个行动作出反馈，代表了我们对于完成任务的过程/方式的引导。B部分，即“local reward”可以融入一些先验知识来提高exploration的效率，加快学习速度。但同时，B部分也会一定程度上抑制RL智能体在更大的决策空间上的exploration，因此可能导致最终学到的策略不是充分探索后的全局最优策略，而只是符合我们先验知识的某个局部最优策略。</p>
+<p>还是举个例子，假设这么一个任务 (见下图，图片来自Google Research Football<a href="#grf"><sup>[17]</sup></a>)，RL智慧体需要控制一个足球运动员带球射门，球门有守门员来防守，进攻方运动员的初始位置距离球门较远，进攻方运动员可以选择立即射门，但成功率较低，也可以选择先往任意方向带带球，换个位置后再射门。</p>
+<div align="center">
+    <img src="imgs/grf.png" srcset="/img/loading.gif" lazyload width="80%" height="80%" vspace=0>
+    <h6>图1. 射门游戏</h6>
+</div>
+<p>针对这一任务的reward function，首先设计跟任务最终目标关联的A部分，很明确</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>R</mi><mi>A</mi></msup><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>+</mo><mn>1</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>射门成功</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>射门失败 (被守门员拦下或者回合超时)</mtext><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">R^A = \begin{cases} +1, &amp; \text{射门成功}, \\ -1, &amp; \text{射门失败 (被守门员拦下或者回合超时)}. \\ \end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8913309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">+</span><span class="mord">1</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">射门成功</span></span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">射门失败</span><span class="mord"> (</span><span class="mord cjk_fallback">被守门员拦下或者回合超时</span><span class="mord">)</span></span><span class="mord">.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>至于B部分，根据人的先验知识，不难想到，射门位置距离球门越近，射门越容易成功，因此，可以根据动作<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>导致的进攻方运动员跟球门距离的变化量来设计B部分，即，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>R</mi><mi>B</mi></msup><mo>=</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">R^B = \Delta(distance)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Δ</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mclose">)</span></span></span></span>，这样的话，</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>R</mi><mi>B</mi></msup><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>&gt;</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>带球靠近球门</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>=</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>原地不动或射门</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>&lt;</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>带球远离球门</mtext><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">R^B = \begin{cases} &gt;0, &amp; \text{带球靠近球门}, \\ =0, &amp; \text{原地不动或射门}, \\ &lt;0, &amp; \text{带球远离球门}. \\ \end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8913309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.9099999999999997em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35002em;"><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8500199999999998em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">带球靠近球门</span></span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">原地不动或射门</span></span><span class="mpunct">,</span></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">带球远离球门</span></span><span class="mord">.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>同时，需要调整A部分跟B部分加权和的系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>，保证A部分占据主导地位。若B部分权重太大，不难想象，智能体控制下的进攻方运动员会过分关注带球的“local reward”，而无法通过暂时牺牲“local reward”来获得更好的射门位置/角度。</p>
+<p>最后，reward function的设计是一场研究人员跟RL智能体的“猫鼠游戏”，在实践中会发现，RL智能体总会倾向于找到“抄捷径”的策略，所谓的“抄捷径”的策略不能很好地实现任务目标，但是以reward function衡量的话总能获得不错的分数。例如在上个例子中，如果不在A部分加入超时惩罚，那么智能体很可能会满足于拿到一些“local reward”而直到回合时间耗尽也不射门，因为射门有可能得到负的reward，而不射门就绝对不会得到负的reward，对于智能体，这是合理的决策，但显然不是我们想要的结果。因此，我认为reward function的设计需要尽可能简洁有力，尽量使reward function跟任务的最终目标产生强关联，即使采用我上文介绍的“A+B”的模式，也要保证A部分占据主导地位，才可能避免RL智能体“抄捷径”。</p>
+<h2 id="3-关于算法设计的tips"><a class="markdownIt-Anchor" href="#3-关于算法设计的tips"></a> 3. 关于算法设计的tips</h2>
+<ol>
+<li>
+<p>绝对不要！绝对不要！绝对不要在强化学习中使用批归一化 (Batch Normalization，BN)！</p>
+<p>这是大量实践得到的经验，我也曾疑惑为什么在监督学习中效果不俗的BN会在强化学习中贻害无穷，查阅了许多资料后，我认为<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/210761985">这一解释</a>是比较合理的。概括来说，BN可以针对输入数据计算出稳定变化的mean和std用于神经网络输出的归一化。然而，在强化学习里，输入数据的分布是会随着智能体策略的变化而变化的，比如，在某个路口，一个倾向于左转的自动驾驶汽车收集到的用于训练的行驶数据肯定跟一个倾向右转的汽车收集到的行驶数据大不相同。既然输入数据在分布上不断变化，也就难以学到稳定的mean和std用于批归一化，更坏的情况，用旧的数据计算得到的mean和std还会对新的数据产生负面影响。</p>
+</li>
+<li>
+<p>对于强化学习算法来说，学习率 (learning rate) 跟reward function是最重要的两个因素。</p>
+<p>这两个因素往往直接关系到RL智能体能否解决某个问题，而其他参数则属于“锦上添花”的因素，也就是会影响到学得多快，表现多好，而不会起到成败级别的决定性的影响。建议在时间/计算资源有限时优先调整学习率和reward function。</p>
+</li>
+<li>
+<p>关于学习率，首先从一个较小的值开始尝试，比如 1e-4，较大的学习率很容易导致训练的崩溃，在强化学习中这一现象更为显著。</p>
+<p>在我尝试过的算法中，PPO似乎对于较大的学习率更加稳健 (存疑)？。</p>
+</li>
+<li>
+<p>关于使用RL解决计算机视觉 (computer vision, CV) 相关的问题</p>
+<p>在解决CV相关的问题时必然会涉及到图片的处理。图片包含大量的像素点，单个像素点通常不能跟决策形成有效的映射关系，需要对图像特征进行提取，执行这一特征提取任务的通常是一些常见的主干网络 (backbone)，例如ResNet<a href="#resnet"><sup>[15]</sup></a>，MobileNet<a href="#mobilenet"><sup>[16]</sup></a>等，提取的图像特征随后会输入预测部分，也就是value或者policy网络。</p>
+<p>是否对特征提取网络进行端到端 (end-to-end) 的训练，我的建议是不要那么做。更具体地说，使用单独的特征提取网络来对图片进行特征提取，为特征提取网络导入在ImageNet或者其他大型benchmark上预训练过的模型参数然后固定住不再变动。使用与特征提取网络分离的value或者policy网络来学习从图像特征到决策空间 (action space) 的端到端的映射，而不是从像素点到决策空间的映射。这种做法可以极大地减少参与训练的参数总量，同时，相对于从像素点到决策空间的映射，从图像特征到决策空间的映射往往更易于学习。</p>
+<p>另，特征提取网络建议采用较小的主干网络，比如MobileNet，虽然相对于ResNet等网络，小的主干网络在单次推理 (inference) 上节省的时间可以忽略不计，但是考虑到强化学习对样本的低利用率以及由此导致的动辄上百万次的迭代更新，小的主干网络多节省的时间还是比较可观的。</p>
+</li>
+<li>
+<p>关于value和policy网络的结构</p>
+<p>不同于CV或者NLP领域五花八门的网络结构设计，强化学习中value和policy网络采用多层全连接层相连的简单结构即可 (不包括上条tip中用于提取数据特征的特征提取网络)。根据要解决的问题的复杂程度，全连接层的层数可以灵活变化，最好不超过8层，通常可选3~6层。至于每层的宽度也比较灵活，最好取2的幂次，比如32，64，128，256等，通常不超过512。不过要注意的是value和policy网络的层数跟宽度大概选一下就好了，不必花太多的时间去调整，原因参照第二条tip。</p>
+<p>另，虽说更大的value/policy网络在理论上是涵盖小的网络的参数空间的，但是在实际应用中，网络规模还是要跟任务难度相称，对于一些较为简单的任务，小的value/policy网络更容易收敛。</p>
+<p>下面提供了一个actor-critic框架的网络结构模板，仅供参考。</p>
+ <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-class"></span><br><span class="hljs-class"></span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">Actor</span>(<span class="hljs-title">nn</span>.<span class="hljs-type">Module</span>):</span><br><span class="hljs-class">   	def __init__(<span class="hljs-title">self</span>, <span class="hljs-title">in_dim</span>: <span class="hljs-title">int</span>, <span class="hljs-title">out_dim</span>: <span class="hljs-title">int</span>):</span><br><span class="hljs-class">       	super(<span class="hljs-type">Actor</span>, <span class="hljs-title">self</span>).__init__()</span><br><span class="hljs-class"></span><br><span class="hljs-class">       	self.layers = nn.<span class="hljs-type">Sequential</span>(</span><br><span class="hljs-class">           	<span class="hljs-title">nn</span>.<span class="hljs-type">Linear</span>(<span class="hljs-title">in_dim</span>, 128),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">ReLU</span>(),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">Linear</span>(128, 128),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">ReLU</span>(),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">Linear</span>(128, <span class="hljs-title">out_dim</span>),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">Tanh</span>(),</span><br><span class="hljs-class">       	)</span><br><span class="hljs-class"></span><br><span class="hljs-class">   	def forward(<span class="hljs-title">self</span>, <span class="hljs-title">state</span>: <span class="hljs-title">torch</span>.<span class="hljs-type">Tensor</span>) -&gt; torch.<span class="hljs-type">Tensor</span>:</span><br><span class="hljs-class">       	action = self.layers(<span class="hljs-title">state</span>)</span><br><span class="hljs-class">       	return action</span><br><span class="hljs-class"></span><br><span class="hljs-class"></span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">Critic</span>(<span class="hljs-title">nn</span>.<span class="hljs-type">Module</span>):</span><br><span class="hljs-class">   	def __init__(<span class="hljs-title">self</span>, <span class="hljs-title">in_dim</span>: <span class="hljs-title">int</span>):</span><br><span class="hljs-class">       	super(<span class="hljs-type">Critic</span>, <span class="hljs-title">self</span>).__init__()</span><br><span class="hljs-class"></span><br><span class="hljs-class">       	self.layers = nn.<span class="hljs-type">Sequential</span>(</span><br><span class="hljs-class">           	<span class="hljs-title">nn</span>.<span class="hljs-type">Linear</span>(<span class="hljs-title">in_dim</span>, 128),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">ReLU</span>(),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">Linear</span>(128, 128),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">ReLU</span>(),</span><br><span class="hljs-class">           	nn.<span class="hljs-type">Linear</span>(128, 1),</span><br><span class="hljs-class">       	)</span><br><span class="hljs-class"></span><br><span class="hljs-class">   	def forward(</span><br><span class="hljs-class">           	<span class="hljs-title">self</span>, <span class="hljs-title">state</span>: <span class="hljs-title">torch</span>.<span class="hljs-type">Tensor</span>, <span class="hljs-title">action</span>: <span class="hljs-title">torch</span>.<span class="hljs-type">Tensor</span></span><br><span class="hljs-class">   	) -&gt; torch.<span class="hljs-type">Tensor</span>:</span><br><span class="hljs-class">       	x = torch.cat((<span class="hljs-title">state</span>, <span class="hljs-title">action</span>), dim=-1)</span><br><span class="hljs-class">       	value = self.layers(<span class="hljs-title">x</span>)</span><br><span class="hljs-class">       	return value</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在搭建value/policy网络时注意激活函数，尤其是输出层的激活函数。例如，value网络用于对value进行预测，而value通常有正有负且范围较大，如果不小心在输出层加上Tanh激活函数就意味着永远不可能学好。</p>
+</li>
+<li>
+<p>对state/observation进行数值归一化可以约束数值范围，通常是可以加快训练的。常见的数值归一化有两种：min-max归一化和正态归一化 (有的地方又称“标准化”)。对其区分可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36604953/article/details/102652160">文章1</a>，<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20467170">文章2</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Feature_scaling">文章3</a>。</p>
+<ul>
+<li>min-max归一化</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">x&#x27; = \frac{x - min(x)}{max(x) - min(x)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">min(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 是输入数据/特征的最小值, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">max(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 是最大值。</p>
+<ul>
+<li>正态归一化</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mover accent="true"><mi>x</mi><mo>ˉ</mo></mover></mrow><mi>σ</mi></mfrac></mrow><annotation encoding="application/x-tex">x&#x27; = \frac{x - \bar{x}}{\sigma}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.9463300000000001em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;">ˉ</span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>x</mi><mo>ˉ</mo></mover></mrow><annotation encoding="application/x-tex">\bar{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.56778em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.22222em;">ˉ</span></span></span></span></span></span></span></span></span> 是输入数据/特征的均值, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span> 是标准差。</p>
+</li>
+<li>
+<p>有时，我们会遇到state/observation包含多个不同来源的情况，来源不同的各部分有不同的意义，且数值差异较大，这时，建议采用一种“limited-connection”的网络结构。如下图所示，各个子部分分别通过一层全连接层，从而得到长度相同的特征，之后再连接在一起通过后面的神经网络。</p>
+ <div align="center">
+ 	<img src="imgs/limited_connection.png" srcset="/img/loading.gif" lazyload width="60%" height="60%" vspace=0>
+ 	<h6>图2. “limited-connection”的网络结构</h6>
+ </div>
+<p>这么做有几个好处：(1) 显著减少网络参数，尤其指分别处理各个子部分特征的第一层；(2) 各个子部分特征的数值范围差异较大，“limited-connection”结构下可以方便地分别进行数值归一化，同时各个子部分特征的原始尺寸可能差异较大，但是通过网络第一层可以方便的调整各个子部分的特征尺度，避免某一子部分对于action输出的影响过大；(3) 各个子部分特征的意义不同，在这种情况下，先分别处理然后连接更高层的特征通常是更为有效的。</p>
+</li>
+<li>
+<p>在actor-critic框架的RL算法中，critic的学习率通常要比actor的学习率大一些，比如2~5倍。</p>
+</li>
+</ol>
+<h2 id="4-可选的tips"><a class="markdownIt-Anchor" href="#4-可选的tips"></a> 4. 可选的tips</h2>
+<p>某些情况下可能有奇效，建议最后再尝试。</p>
+<ul>
+<li>
+<p>梯度修剪 (gradient clipping)</p>
+</li>
+<li>
+<p>换一个随机数种子</p>
+<p>常见的可以设置随机数种子的包有numpy，random，torch，tensorflow等，设置固定的随机数种子对于强化学习算法结果的复现性是有益的，是在写代码时比较建议的做法，如下所示。</p>
+  <figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs monkey"><span class="hljs-keyword">import</span> numpy as np<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> torch<span class="hljs-meta"></span><br><span class="hljs-meta">    </span><br><span class="hljs-meta"># set the random seed</span><br><span class="hljs-built_in">seed</span> = <span class="hljs-number">0</span><br>np.random.<span class="hljs-built_in">seed</span>(<span class="hljs-built_in">seed</span>)<br>random.<span class="hljs-built_in">seed</span>(<span class="hljs-built_in">seed</span>)<br>torch.manual_seed(<span class="hljs-built_in">seed</span>)<br></code></pre></td></tr></table></figure>
+<p>更换随机数种子可能对算法结果没有影响，也可能有很大的影响，emmm，用玄学对抗玄学？</p>
+</li>
+</ul>
+<h2 id="5-不知道放在哪里合适的tips"><a class="markdownIt-Anchor" href="#5-不知道放在哪里合适的tips"></a> 5. 不知道放在哪里合适的tips</h2>
+<ol>
+<li>
+<p>奥卡姆剃刀 (Occam’s Razor) 原则：若无必要，勿增实体 (entities should not be multiplied beyond necessity)。</p>
+<p>尽量保持一些细节设计上的简洁性，不要试图用一个复杂的结构或者复杂的流程来解决一个不是足够重要的问题。比如，在reward function的设计中，引入太多包含先验知识的人为引导往往会导致智能体学到“意料之外”的策略。</p>
+</li>
+<li>
+<p>实事求是</p>
+<p>论文中表现更好的算法不见得在每个实际任务中都表现更好；同理，论文中效果不错的idea/trick不一定在实际任务中有用。保持开放又怀疑的态度，实事求是，多尝试，多思考。</p>
+</li>
+</ol>
+<h2 id="参考-reference"><a class="markdownIt-Anchor" href="#参考-reference"></a> 参考 (Reference)</h2>
+<div id="atari"></div>
+<ul>
+<li>[1] Bellemare, Marc G., et al. “The arcade learning environment: An evaluation platform for general agents.” Journal of Artificial Intelligence Research 47 (2013): 253-279.</li>
+</ul>
+<div id="mujoco"></div>
+<ul>
+<li>[2] Todorov, Emanuel, Tom Erez, and Yuval Tassa. “Mujoco: A physics engine for model-based control.” 2012 IEEE/RSJ international conference on intelligent robots and systems. IEEE, 2012.</li>
+</ul>
+<div id="imagenet"></div>
+<ul>
+<li>[3] Deng, Jia, et al. “Imagenet: A large-scale hierarchical image database.” 2009 IEEE conference on computer vision and pattern recognition. Ieee, 2009.</li>
+</ul>
+<div id="dqn"></div>
+<ul>
+<li>[4] Mnih, Volodymyr, et al. “Human-level control through deep reinforcement learning.” nature 518.7540 (2015): 529-533.</li>
+</ul>
+<div id="doubledqn"></div>
+<ul>
+<li>[5] Van Hasselt, Hado, Arthur Guez, and David Silver. “Deep reinforcement learning with double q-learning.” Proceedings of the AAAI conference on artificial intelligence. Vol. 30. No. 1. 2016.</li>
+</ul>
+<div id="duelingdqn"></div>
+<ul>
+<li>[6] Wang, Ziyu, et al. “Dueling network architectures for deep reinforcement learning.” International conference on machine learning. PMLR, 2016.</li>
+</ul>
+<div id="pridqn"></div>
+<ul>
+<li>[7] Schaul, Tom, et al. “Prioritized experience replay.” arXiv preprint arXiv:1511.05952 (2015).</li>
+</ul>
+<div id="noisydqn"></div>
+<ul>
+<li>[8] Fortunato, Meire, et al. “Noisy networks for exploration.” arXiv preprint arXiv:1706.10295 (2017).</li>
+</ul>
+<div id="dqn_bootstrap"></div>
+<ul>
+<li>[9] Sutton, Richard S. “Learning to predict by the methods of temporal differences.” Machine learning 3.1 (1988): 9-44.</li>
+</ul>
+<div id="rainbow"></div>
+<ul>
+<li>[10] Hessel, Matteo, et al. “Rainbow: Combining improvements in deep reinforcement learning.” Thirty-second AAAI conference on artificial intelligence. 2018.</li>
+</ul>
+<div id="ddpg"></div>
+<ul>
+<li>[11] Lillicrap, Timothy P., et al. “Continuous control with deep reinforcement learning.” arXiv preprint arXiv:1509.02971 (2015).</li>
+</ul>
+<div id="td3"></div>
+<ul>
+<li>[12] Fujimoto, Scott, Herke Hoof, and David Meger. “Addressing function approximation error in actor-critic methods.” International conference on machine learning. PMLR, 2018.</li>
+</ul>
+<div id="ppo"></div>
+<ul>
+<li>[13] Schulman, John, et al. “Proximal policy optimization algorithms.” arXiv preprint arXiv:1707.06347 (2017).</li>
+</ul>
+<div id="trpo"></div>
+<ul>
+<li>[14] Schulman, John, et al. “Trust region policy optimization.” International conference on machine learning. PMLR, 2015.</li>
+</ul>
+<div id="resnet"></div>
+<ul>
+<li>[15] He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.</li>
+</ul>
+<div id="mobilenet"></div>
+<ul>
+<li>[16] Howard, Andrew G., et al. “Mobilenets: Efficient convolutional neural networks for mobile vision applications.” arXiv preprint arXiv:1704.04861 (2017).</li>
+</ul>
+<div id="grf"></div>
+<ul>
+<li>[17] Kurach, Karol, et al. “Google research football: A novel reinforcement learning environment.” Proceedings of the AAAI Conference on Artificial Intelligence. Vol. 34. No. 04. 2020.</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度强化学习</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>深度强化学习从入门到秃头--下篇</div>
+      <div>https://zray111.github.io/2022/09/11/深度强化学习从入门到秃头-下篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZRay</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                <i class="iconfont icon-sa"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8A%E7%AF%87/" title="深度强化学习从入门到秃头--上篇">
+                        <span class="hidden-mobile">深度强化学习从入门到秃头--上篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.17/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"WVtRgJMmrXec24ZpDhSPOyVX-gzGzoHsz","appKey":"Xi5CghXDNJYmFDkEENPyopre","path":"window.location.pathname","placeholder":"留言仅限讨论，请勿发布无关内容","avatar":"retro","meta":["nick","mail","link"],"requiredFields":["nick"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
