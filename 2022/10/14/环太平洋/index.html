@@ -16,26 +16,23 @@
   <meta name="author" content="ZRay">
   <meta name="keywords" content="">
   
-    <meta name="description" content="学习并记录git的常用操作">
+    <meta name="description" content="大概就是重新用脑袋放映了一遍《环太平洋》电影">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git笔记">
-<meta property="og:url" content="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="《环太平洋》">
+<meta property="og:url" content="https://zray111.github.io/2022/10/14/%E7%8E%AF%E5%A4%AA%E5%B9%B3%E6%B4%8B/index.html">
 <meta property="og:site_name" content="ZRay的空间">
-<meta property="og:description" content="学习并记录git的常用操作">
+<meta property="og:description" content="大概就是重新用脑袋放映了一遍《环太平洋》电影">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/imgs/I-5-a.png">
-<meta property="article:published_time" content="2022-10-09T10:01:41.000Z">
-<meta property="article:modified_time" content="2022-10-09T11:39:58.641Z">
+<meta property="article:published_time" content="2022-10-14T06:55:38.000Z">
+<meta property="article:modified_time" content="2022-10-14T07:30:14.674Z">
 <meta property="article:author" content="ZRay">
 <meta property="article:tag" content="原创">
-<meta property="article:tag" content="科研">
-<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="读书">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/imgs/I-5-a.png">
   
   
   
-  <title>git笔记 - ZRay的空间</title>
+  <title>《环太平洋》 - ZRay的空间</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="git笔记"></span>
+            <span id="subtitle" data-typed-text="《环太平洋》"></span>
           
         </div>
 
@@ -230,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 18:01" pubdate>
-          2022年10月9日 晚上
+        <time datetime="2022-10-14 14:55" pubdate>
+          2022年10月14日 下午
         </time>
       </span>
     
@@ -242,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          848 字
         
       </span>
     
@@ -253,7 +250,7 @@
         
         
         
-          15 分钟
+          8 分钟
         
       </span>
     
@@ -299,105 +296,19 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">git笔记</h1>
+            <h1 style="display: none">《环太平洋》</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="git笔记"><a class="markdownIt-Anchor" href="#git笔记"></a> git笔记</h1>
-<blockquote>
-<p>学习并记录git的常用操作。</p>
-</blockquote>
-<p><strong>目录</strong></p>
-<p>II. 基本操作</p>
-<ul>
-<li><a href="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/#1-%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93">创建本地仓库</a></li>
-<li><a href="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/#2-%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%B9%B6%E6%8E%A8%E9%80%81-%E5%88%9D%E5%A7%8B%E5%8C%96-%E5%88%B0%E7%BA%BF%E4%B8%8A%E4%BB%93%E5%BA%93%E7%9A%84%E4%B8%BB%E5%88%86%E6%94%AF">创建本地仓库并推送 (初始化) 到线上仓库的主分支</a></li>
-<li><a href="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/#3-%E6%8E%A8%E9%80%81%E6%97%A2%E6%9C%89%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%88%B0%E7%BA%BF%E4%B8%8A%E4%BB%93%E5%BA%93%E7%9A%84%E4%B8%BB%E5%88%86%E6%94%AF">推送既有本地仓库到线上仓库的主分支</a></li>
-<li><a href="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/#4-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E5%88%B0%E7%BA%BF%E4%B8%8A%E4%BB%93%E5%BA%93%E7%9A%84%E6%96%B0%E5%88%86%E6%94%AF">在本地仓库新建一个分支并推送到线上仓库的新分支</a></li>
-<li><a href="https://zray111.github.io/2022/10/09/git%E7%AC%94%E8%AE%B0/#5-%E4%BB%8E%E8%B7%9F%E8%B8%AA%E6%B8%85%E5%8D%95%E4%B8%AD%E5%88%A0%E9%99%A4%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6">从跟踪清单中删除某个文件</a></li>
-</ul>
-<p>III. 进阶操作</p>
-<p>IV. 多人协作专题</p>
-<p>V. 报错信息处理</p>
-<h2 id="i-本文常用语"><a class="markdownIt-Anchor" href="#i-本文常用语"></a> I. 本文常用语</h2>
-<ul>
-<li>仓库 (repository): 代码项目
-<ul>
-<li>本地仓库 (local repository): 本地代码项目副本，常用于进行代码编辑。</li>
-<li>线上/远端仓库 (remote repository): 本地代码项目的线上托管版本，常用于代码协作、同步、备份等。最常见的代码托管网址即<a target="_blank" rel="noopener" href="https://github.com/">Github</a>。</li>
-</ul>
-</li>
-<li>分支 (branch): 同一项目的不同版本，每个项目可以有多个分支，但是主分支只有一个且必须有一个，通常命名为main或者master。</li>
-<li>推送 (push)</li>
-<li>下拉 (pull)</li>
-</ul>
-<h2 id="ii-基本操作"><a class="markdownIt-Anchor" href="#ii-基本操作"></a> II. 基本操作</h2>
-<h3 id="1-创建本地仓库"><a class="markdownIt-Anchor" href="#1-创建本地仓库"></a> 1. 创建本地仓库</h3>
-<p>Create a new local repository.</p>
-<pre><code class="hljs">git init
-git add .
-git commit -m &quot;init commit&quot;
-</code></pre>
-<p>注意事项：</p>
-<ul>
-<li><code>git add .</code>会添加当前目录下所有未被<code>.gitignore</code>排除的文件/文件夹。推荐新建项目的时候顺便新建一个<code>README.md</code>和一个<code>.gitignore</code>。</li>
-<li><code>git add &lt;file/folder&gt;</code>可以单独添加某个文件/文件夹，例如<code>git add README.md</code>。</li>
-</ul>
-<h3 id="2-创建本地仓库并推送-初始化-到线上仓库的主分支"><a class="markdownIt-Anchor" href="#2-创建本地仓库并推送-初始化-到线上仓库的主分支"></a> 2. 创建本地仓库并推送 (初始化) 到线上仓库的主分支</h3>
-<p>Create a new local repository and push it to the main branch of a remote repository.</p>
-<pre><code class="hljs">git init
-git add .
-git commit -m &quot;init commit&quot;
-git branch -M main
-git remote add origin https://github.com/ZRay111/GitOps.git
-git push -u origin main
-</code></pre>
-<p>注意事项：</p>
-<ul>
-<li><code>git push</code>的<code>-u</code> 参数其实就相当于记录了push到远端分支的默认值，这样当下次我们还想要继续push的这个远端分支的时候推送命令就可以简写成<code>git push</code>即可。</li>
-<li><code>git branch -m &lt;branch&gt;</code> 和 <code>git branch -M &lt;branch&gt;</code> 是用来移动和重命名分支的，两者在功能上略有区别。</li>
-</ul>
-<h3 id="3-推送既有本地仓库到线上仓库的主分支"><a class="markdownIt-Anchor" href="#3-推送既有本地仓库到线上仓库的主分支"></a> 3. 推送既有本地仓库到线上仓库的主分支</h3>
-<p>Push an existing repository to the main branch of a remote repository.</p>
-<pre><code class="hljs">git remote add origin https://github.com/ZRay111/GitOps.git
-git branch -M main
-git push -u origin main
-</code></pre>
-<h3 id="4-在本地仓库新建一个分支并推送到线上仓库的新分支"><a class="markdownIt-Anchor" href="#4-在本地仓库新建一个分支并推送到线上仓库的新分支"></a> 4. 在本地仓库新建一个分支并推送到线上仓库的新分支</h3>
-<pre><code class="hljs">git branch # 查看本地分支列表
-git branch b1  # 从当前分支创建名为b1的新分支
-git checkout b1  # 从当前分支切换到分支b1
-* # 在分支b1做出一些修改
-git add .
-git commit -m &quot;init branch b1&quot;
-git remote add origin https://github.com/ZRay111/GitOps.git  # 可选操作
-git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1到线上分支b1
-</code></pre>
-<p>注意事项：</p>
-<ul>
-<li><code>git branch &lt;branch&gt;</code>创建新分支时，新分支的初始化内容是当前分支的副本，因此在不同的分支创建新分支，新分支的内容有所不同。</li>
-<li><code>git branch &lt;branch&gt;</code>和<code>git checkout &lt;branch&gt;</code>可以合并为一步<code>git checkout -b &lt;branch&gt;</code>。</li>
-</ul>
-<h3 id="5-从跟踪清单中删除某个文件"><a class="markdownIt-Anchor" href="#5-从跟踪清单中删除某个文件"></a> 5. 从跟踪清单中删除某个文件</h3>
-<pre><code class="hljs">git rm --cached &lt;file&gt;
-</code></pre>
-<p>注意事项：</p>
-<ul>
-<li>此操作不会删除本地文件，经过一次推送会从线上仓库删除相应的文件。</li>
-<li>本操作常用场景：错误地把一些文件加入到追踪清单时，比如模型参数文件，log文件等；记得在本操作后及时更新<code>.gitignore</code>。</li>
-</ul>
-<div align="center">
-    <img src="imgs/I-5-a.png" srcset="/img/loading.gif" lazyload width="90%" height="90%" vspace=0>
-    <h6>Fig. I-5. 从跟踪清单中删除某个文件</h6>
-</div>
-<h2 id="iii-进阶操作"><a class="markdownIt-Anchor" href="#iii-进阶操作"></a> III. 进阶操作</h2>
-<h2 id="iv-多人协作专题"><a class="markdownIt-Anchor" href="#iv-多人协作专题"></a> IV. 多人协作专题</h2>
-<h2 id="v-报错信息处理"><a class="markdownIt-Anchor" href="#v-报错信息处理"></a> V. 报错信息处理</h2>
-<h3 id="1-没有写入权限"><a class="markdownIt-Anchor" href="#1-没有写入权限"></a> 1. 没有写入权限</h3>
-<ul>
-<li>排查是否切换到正确的账号/用户。</li>
-</ul>
+                <h1 id="环太平洋"><a class="markdownIt-Anchor" href="#环太平洋"></a> 《环太平洋》</h1>
+<p>我是在“包图”闲逛的时候发现的这两本书，《环太平洋》跟《环太平洋II：雷霆再起》。当时我以为是发现了电影的原著小说，出于对《环太平洋》电影的喜欢以及对其续集《环太平洋II：雷霆再起》的厌恶 (期待原著小说有不一样的剧情)，我借出了这两本书打算读一下。</p>
+<p>一开始读《环太平洋》，内心啧啧称奇，电影的还原度也太高了，几乎就是1:1还原了小说的内容。后面越读越不对劲，一般小说改编电影总会做些改动，毕竟文字跟影像是两种不同的媒介，有改动是客观规律，可是这还原度也高的离谱了。直到读完第一部《环太平洋》上网查了查才知道原来小说出版比电影上映还要晚一些，哦，这就解释得通了。不过既然这样的话，那第二部《环太平洋II：雷霆再起》就没必要读了，剧情不改也只是再多恶心自己一遍。</p>
+<p>“机甲是男人的浪漫”，此言不虚，《环太平洋》里机甲的机械质感，遮天蔽日的巨大体型，与怪兽拳拳到肉的对战真是太爽了，看完电影意犹未尽，很后悔没在电影院看到。因此也十分期待续集的上映，早早就买票去了电影院打算再爽一把，结果拍的什么鬼啊，即使抛开莫名其妙的剧情，新一代机甲完全没有机械的厚重感，就跟个皮套似的，“灵活”的不像话。就不能学学隔壁的《哥斯拉II：怪兽之王》，同样莫名其妙的剧情，起码看巨兽掐架看得爽啊。</p>
+<h2 id="后记"><a class="markdownIt-Anchor" href="#后记"></a> 后记</h2>
+<p>两个半小时足够看完《环太平洋》这部电影，却不够看完同样剧情的同名小说，因此，从时间利用效率的角度来说，阅读同名小说是低效而不划算的。但是，与阅读相伴而生的还有思考和想象，尤其是脑海中本就存储着与文字一一对应而栩栩如生的影像时，想象和检索几乎是一刻不停的，某种程度上，这算是大脑体操了吧。</p>
+<p>如今的时代，是一个到处充斥着碎片化信息和乏味而上瘾的短视频的时代，人的大脑越来越习惯于被动“接收”而逐渐荒废了“思考”和“甄选”。姑且在此下一个“暴论”：碎片化信息和短视频泛滥的趋势不改变的话，人类整体的老年痴呆发病率要上升。</p>
+<p>所以，我的看法是：读书 &gt;&gt; 看电影 &gt;&gt; 碎片信息 (比如刷知乎) &gt;&gt; 短视频</p>
 
                 
               </div>
@@ -416,25 +327,18 @@ git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  <a href="/categories/%E7%94%9F%E6%B4%BB/" class="category-chain-item">生活</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/" class="category-chain-item">程序员</a>
+  <a href="/categories/%E7%94%9F%E6%B4%BB/%E8%AF%BB%E4%B9%A6/" class="category-chain-item">读书</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
+  <a href="/categories/%E7%94%9F%E6%B4%BB/%E8%AF%BB%E4%B9%A6/%E7%8E%AF%E5%A4%AA%E5%B9%B3%E6%B4%8B/" class="category-chain-item">环太平洋</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/%E5%B7%A5%E5%85%B7/git-github/" class="category-chain-item">git/github</a>
-  
-  
-
   
 
   
@@ -454,9 +358,7 @@ git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1
       
         <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
       
-        <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
-      
-        <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98/">#程序员</a>
+        <a href="/tags/%E8%AF%BB%E4%B9%A6/">#读书</a>
       
     </div>
   
@@ -468,8 +370,8 @@ git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>git笔记</div>
-      <div>https://zray111.github.io/2022/10/09/git笔记/</div>
+      <div>《环太平洋》</div>
+      <div>https://zray111.github.io/2022/10/14/环太平洋/</div>
     </div>
     <div class="license-meta">
       
@@ -481,7 +383,7 @@ git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月9日</div>
+          <div>2022年10月14日</div>
         </div>
       
       
@@ -517,18 +419,12 @@ git push origin b1:b1  # 在线上仓库创建新分支b1并推送本地分支b1
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/10/%E3%80%8A%E4%B8%89%E4%BD%93%E3%80%8B%E6%BC%AB%E6%83%B3-I/" title="《三体》漫想-I">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《三体》漫想-I</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%AD%E7%AF%87/" title="深度强化学习从入门到秃头--中篇">
-                        <span class="hidden-mobile">深度强化学习从入门到秃头--中篇</span>
+                      <a href="/2022/10/10/%E3%80%8A%E4%B8%89%E4%BD%93%E3%80%8B%E6%BC%AB%E6%83%B3-I/" title="《三体》漫想-I">
+                        <span class="hidden-mobile">《三体》漫想-I</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

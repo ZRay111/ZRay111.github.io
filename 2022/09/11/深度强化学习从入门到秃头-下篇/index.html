@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/imgs/grf.png">
 <meta property="og:image" content="https://zray111.github.io/2022/09/11/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%A7%83%E5%A4%B4-%E4%B8%8B%E7%AF%87/imgs/limited_connection.png">
 <meta property="article:published_time" content="2022-09-11T10:39:31.000Z">
-<meta property="article:modified_time" content="2022-09-12T03:12:10.286Z">
+<meta property="article:modified_time" content="2022-10-14T05:47:09.649Z">
 <meta property="article:author" content="ZRay">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="科研">
@@ -242,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          11k 字
         
       </span>
     
@@ -253,7 +253,7 @@
         
         
         
-          86 分钟
+          93 分钟
         
       </span>
     
@@ -320,7 +320,7 @@
 <ul>
 <li>
 <p>对于离散动作空间的任务</p>
-<p>最经典的算法自然是发表在Nature上的DQN<a href="#dqn"><sup>[4]</sup></a>算法，以DQN为基础衍生出了规模庞大的DQN算法家族，仅比较知名的就有Double DQN<a href="#doubledqn"><sup>[5]</sup></a>，Dueling DQN<a href="#duelingdqn"><sup>[6]</sup></a>，DQN with Prioritized Experience Replay<a href="#pridqn"><sup>[7]</sup></a>, Noisy DQN<a href="#noisydqn"><sup>[8]</sup></a>，DQN with multi-step bootstrap<a href="#dqn_bootstrap"><sup>[9]</sup></a>等，以及DQN算法家族的集大成者Rainbow<a href="#rainbow"><sup>[10]</sup></a>算法，正如其名字所暗示的那样，Rainbow算法集成了和DQN相关的多种改进，从而在当时登顶了DQN算法之最。不过Rainbow在带来提升的同时也极大的提高了算法的复杂性，越复杂的算法意味着越容易出错、越难以维护的代码，而且某些改进对于算法整体表现的提升相对于其带来的额外计算开销，似乎“性价比”并不高；还有一些改进引入了许多较为敏感的超参数，以调试难度的增大为代价来换取算法表现的提升，对于实践经验不足的入门选手不甚友好。因此，考虑到算法的复杂度以及稳定性，比较推荐的是集成了Double DQN，Dueling DQN的Double Dueling DQN (D3QN)算法。</p>
+<p>最经典的算法自然是发表在Nature上的DQN<a href="#dqn"><sup>[4]</sup></a>算法，以DQN为基础衍生出了规模庞大的DQN算法家族，仅比较知名的就有Double DQN<a href="#doubledqn"><sup>[5]</sup></a>，Dueling DQN<a href="#duelingdqn"><sup>[6]</sup></a>，DQN with Prioritized Experience Replay<a href="#pridqn"><sup>[7]</sup></a>, Noisy DQN<a href="#noisydqn"><sup>[8]</sup></a>，DQN with multi-step bootstrap<a href="#dqn_bootstrap"><sup>[9]</sup></a>等，以及DQN算法家族的集大成者Rainbow<a href="#rainbow"><sup>[10]</sup></a>算法，正如其名字所暗示的那样，Rainbow算法集成了和DQN相关的多种改进，从而在当时登顶了DQN算法之最。不过Rainbow在带来提升的同时也极大的提高了算法的复杂性，越复杂的算法意味着越容易出错、越难以维护的代码，而且某些改进对于算法整体表现的提升相对于其带来的额外计算开销，似乎“性价比”并不高；还有一些改进引入了许多较为敏感的超参数，以调试难度的增大为代价来换取算法表现的提升，对于实践经验不足的入门选手不甚友好。因此，考虑到算法的复杂度以及稳定性，比较推荐的是集成了Double DQN，Dueling DQN的Double Dueling DQN (D3QN)算法。不过，时间充裕的话还是建议先试试更基础的DQN/Double DQN来确保代码的正确，两者在调参上极为相似，或者说，DQN可行的参数大概率也适用于Double DQN；但是，一旦集成了Dueling DQN改变了网络结构，可能在调参上就要额外花些功夫了。</p>
 </li>
 <li>
 <p>对于连续动作空间的任务</p>
@@ -345,7 +345,8 @@
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>R</mi><mi>B</mi></msup><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>&gt;</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>带球靠近球门</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>=</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>原地不动或射门</mtext><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>&lt;</mo><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>带球远离球门</mtext><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">R^B = \begin{cases} &gt;0, &amp; \text{带球靠近球门}, \\ =0, &amp; \text{原地不动或射门}, \\ &lt;0, &amp; \text{带球远离球门}. \\ \end{cases}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8913309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.9099999999999997em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35002em;"><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8500199999999998em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">带球靠近球门</span></span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">原地不动或射门</span></span><span class="mpunct">,</span></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">带球远离球门</span></span><span class="mord">.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <p>同时，需要调整A部分跟B部分加权和的系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>，保证A部分占据主导地位。若B部分权重太大，不难想象，智能体控制下的进攻方运动员会过分关注带球的“local reward”，而无法通过暂时牺牲“local reward”来获得更好的射门位置/角度。</p>
-<p>最后，reward function的设计是一场研究人员跟RL智能体的“猫鼠游戏”，在实践中会发现，RL智能体总会倾向于找到“抄捷径”的策略，所谓的“抄捷径”的策略不能很好地实现任务目标，但是以reward function衡量的话总能获得不错的分数。例如在上个例子中，如果不在A部分加入超时惩罚，那么智能体很可能会满足于拿到一些“local reward”而直到回合时间耗尽也不射门，因为射门有可能得到负的reward，而不射门就绝对不会得到负的reward，对于智能体，这是保守而合理的决策，但显然不是我们想要的结果。因此，我认为reward function的设计需要尽可能简洁有力，尽量使reward function跟任务的最终目标产生强关联，即使采用我上文介绍的“A+B”的模式，也要保证A部分占据主导地位，才可能避免RL智能体“抄捷径”。</p>
+<p>除此之外，reward function另一个常用的设计是为每一步 (step) 添加一个小的惩罚，来“督促”RL智能体找出一个尽可能高效快速的解决方案，同时，这样也能避免RL智能体“以不变应万变”的胆小鬼策略。我把这一方式叫做“step penalty”。</p>
+<p>最后，reward function的设计是一场研究人员跟RL智能体的“猫鼠游戏”，在实践中会发现，RL智能体总会倾向于找到“抄捷径” (shortcut) 的策略，所谓的“抄捷径”的策略不能很好地实现任务目标，但是以reward function衡量的话总能获得不错的分数。例如在上个例子中，如果不在A部分加入超时惩罚，那么智能体很可能会满足于拿到一些“local reward”而直到回合时间耗尽也不射门，因为射门有可能得到负的reward，而不射门就绝对不会得到负的reward，对于智能体，这是保守而合理的决策，但显然不是我们想要的结果。因此，我认为reward function的设计需要尽可能简洁有力，尽量使reward function跟任务的最终目标产生强关联，即使采用我上文介绍的“A+B”的模式，也要保证A部分占据主导地位，才可能避免RL智能体“抄捷径”。</p>
 <h2 id="3-关于算法设计的tips"><a class="markdownIt-Anchor" href="#3-关于算法设计的tips"></a> 3. 关于算法设计的tips</h2>
 <ol>
 <li>
@@ -402,6 +403,10 @@
 <li>
 <p>在actor-critic框架的RL算法中，critic的学习率通常要比actor的学习率大一些，比如2~5倍。</p>
 </li>
+<li>
+<p>合适的exploration策略对于RL智能体的训练十分重要，保证充分的exploration是RL智能体学到最优策略的必要条件。</p>
+<p>常见的exploration机制有DQN系列的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>-greedy policy和policy gradient系列的entropy coefficient，无论在哪种情况下，退火机制 (exploration decay) 通常是不错的选择。对于DQN系列的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>-greedy policy，这通常不是个问题，exploration的参数控制 (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>) 跟value function的值没有强关联，换句话说，即使exploration太强导致training reward很差也不会影响testing reward。不过在policy gradient系列的entropy coefficient中，entropy coefficient取较大的值固然可以保证强的exploration，但是也会导致输出action distribution趋向平均，即，好的action跟坏的action的probability差距不大，这会降低policy的安全冗余性，形象地说就是“走钢丝一般的policy”，这对于testing是不利的，因此，在训练过程中逐渐减小entropy coefficient来保证较为鲜明果断的policy对于policy gradient系列算法是很必要的。</p>
+</li>
 </ol>
 <h2 id="4-可选的tips"><a class="markdownIt-Anchor" href="#4-可选的tips"></a> 4. 可选的tips</h2>
 <p>某些情况下可能有奇效，建议最后再尝试。</p>
@@ -413,7 +418,7 @@
 <p>换一个随机数种子</p>
 <p>常见的可以设置随机数种子的包有numpy，random，torch，tensorflow等，设置固定的随机数种子对于强化学习算法结果的复现性是有益的，是在写代码时比较建议的做法，如下所示。</p>
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> torch<br>    <br><span class="hljs-comment"># set the random seed</span><br>seed = <span class="hljs-number">0</span><br>np.random.seed(seed)<br>random.seed(seed)<br>torch.manual_seed(seed)<br></code></pre></td></tr></table></figure>
-<p>更换随机数种子可能对算法结果没有影响，也可能有很大的影响，emmm，用玄学对抗玄学？</p>
+<p>更换随机数种子可能对算法结果没有影响，也可能有很大的影响，emmm，用玄学对抗玄学？通常，在paper中汇报的数据需要用多个随记种子取均值来增加结果的说服力。</p>
 </li>
 </ul>
 <h2 id="5-不知道放在哪里合适的tips"><a class="markdownIt-Anchor" href="#5-不知道放在哪里合适的tips"></a> 5. 不知道放在哪里合适的tips</h2>
