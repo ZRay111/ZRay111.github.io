@@ -1,0 +1,914 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.jpg">
+  <link rel="icon" href="/img/fluid.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZRay">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="赋值！赋值！赋值！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动手理解Python的引用、赋值、拷贝">
+<meta property="og:url" content="https://zray111.github.io/2022/11/10/%E5%8A%A8%E6%89%8B%E7%90%86%E8%A7%A3Python%E7%9A%84%E5%BC%95%E7%94%A8%E3%80%81%E8%B5%8B%E5%80%BC%E3%80%81%E6%8B%B7%E8%B4%9D/index.html">
+<meta property="og:site_name" content="ZRay的空间">
+<meta property="og:description" content="赋值！赋值！赋值！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zray111.github.io/2022/11/10/%E5%8A%A8%E6%89%8B%E7%90%86%E8%A7%A3Python%E7%9A%84%E5%BC%95%E7%94%A8%E3%80%81%E8%B5%8B%E5%80%BC%E3%80%81%E6%8B%B7%E8%B4%9D/imgs/III.png">
+<meta property="article:published_time" content="2022-11-10T06:31:09.000Z">
+<meta property="article:modified_time" content="2022-11-10T13:26:53.270Z">
+<meta property="article:author" content="ZRay">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="程序员">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zray111.github.io/2022/11/10/%E5%8A%A8%E6%89%8B%E7%90%86%E8%A7%A3Python%E7%9A%84%E5%BC%95%E7%94%A8%E3%80%81%E8%B5%8B%E5%80%BC%E3%80%81%E6%8B%B7%E8%B4%9D/imgs/III.png">
+  
+  
+  
+  <title>动手理解Python的引用、赋值、拷贝 - ZRay的空间</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.6/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zray111.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"WVtRgJMmrXec24ZpDhSPOyVX-gzGzoHsz","app_key":"Xi5CghXDNJYmFDkEENPyopre","server_url":"https://wvtrgjmm.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ZRay的空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="动手理解Python的引用、赋值、拷贝"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-10 14:31" pubdate>
+          2022年11月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          106 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">动手理解Python的引用、赋值、拷贝</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="动手理解python的引用-赋值-拷贝"><a class="markdownIt-Anchor" href="#动手理解python的引用-赋值-拷贝"></a> 动手理解Python的引用、赋值、拷贝</h1>
+<p>Python是一门面向对象的高级编程语言，相较于其他面向对象的编程语言，Python在面向对象的路上走得更远，即，“一切皆是对象”，因此Python里的某些概念和行为呈现出跟其他高级语言不一样的效果。比如Python的引用、赋值、拷贝这几个概念曾经就让我十分迷糊，直到最近才搞清楚了一些。</p>
+<h2 id="i-变量-对象和引用"><a class="markdownIt-Anchor" href="#i-变量-对象和引用"></a> I. 变量、对象和引用</h2>
+<p>先上结论：<strong>变量</strong> 和 <strong>对象</strong> 之间的关系为 <strong>引用</strong>。</p>
+<h3 id="1-此变量非彼变量"><a class="markdownIt-Anchor" href="#1-此变量非彼变量"></a> 1. 此“变量”非彼“变量”</h3>
+<p>Python里的“变量”跟C/C++里的“变量”有很大不同。</p>
+<p>在C/C++里，借用一个很形象的说法，变量和对象的关系就像是“箱子”和“物体”的关系：初始化 (声明并赋值) 一个变量时会声明一块存储空间并写入一个值，相当于创造一个“箱子”并放入一个“物体”；而改变这一变量的值时会直接修改这一存储空间的内容，相当于用另外一个“物体”替换“箱子”里原有的“物体”；而把一个变量赋值给另一变量时，相当于把“箱子”里的“物体”复制一份儿然后放到另一个“箱子”里，之后两个“箱子”各自独立，互不影响。结合代码如下：</p>
+<p><code>int a = 100 // 在地址1处创建一个箱子a并放入物体100</code></p>
+<p><code>a = 200 // 箱子a里的物体100被替换为物体200</code></p>
+<p><code>int b = a // 在另一个地址2处创建一个箱子b，之后把箱子a中的物体复制一份放入箱子b中；在这之后箱子a和b是相互独立、互不影响的两个箱子</code></p>
+<p>可以体会到，“物体”跟“箱子”是紧密关联在同一块儿存储空间的，同一个“物体”不可能同时装在两个“箱子”里。</p>
+<p>在Python里，“一切皆是对象”，变量是对内存中对象的一个引用，两者的关系相对独立且有各自的存储空间，借用一个很形象的说法，Python里变量和对象的关系就像是“标签”和“商品”的关系：初始化 (声明并赋值) 一个变量时，Python会首先在一块儿存储空间写入一个对象，这一步相当于创造了一个“商品”，之后Python会声明另一块儿存储空间为变量，这一步相当于创造了一个“标签”，最后，Python会把对象的地址写入变量，这一过程叫做引用，相当于把“标签”挂到“商品”上去，后面人们就可以通过“标签”来找到“商品”；对对象的操作需要通过变量实现，这一过程相对复杂，放到<a href="">下一节</a>；在Python里，把一个变量赋值给另一变量时，并不会复制对象，而只是简单添加一条引用，相当于在原来的“商品”上新挂一个“标签”，两个“标签”共享同一个“商品”。结合代码如下：</p>
+<p><code>a = 100 % 在地址1处写入100并把地址1写入变量a，即，把标签a挂在商品100上</code></p>
+<p><code>a = 200 % 在地址2处写入200并用地址2覆盖变量a原来存储的地址1，即把标签a挂在另一个商品200上</code></p>
+<p><code>a = b % 在商品200上再挂上一个标签</code></p>
+<p><code>% 至于原来的商品100，因为没有其他标签挂在上面，会被送去销毁 (Python的垃圾回收机制)</code></p>
+<h3 id="2-id-和-is-is-not"><a class="markdownIt-Anchor" href="#2-id-和-is-is-not"></a> 2. id() 和 is, is not</h3>
+<ul>
+<li>
+<p><code>id(obj)</code> 函数返回对象的唯一标识符，标识符是一个整数，也可以认为是对象的内存地址</p>
+</li>
+<li>
+<p><code>is</code> 用于判断两个变量引用对象是否为同一个，即判断 <code>id(a) == id(b)</code> 是否成立，若两个变量引用对象标识符相同，则返回 <code>True</code>，反之，则返回 <code>False</code>，也就是说，<code>a is b</code> 相当于 <code>id(a) == id(b)</code></p>
+</li>
+<li>
+<p><code>is not</code> 是 <code>is</code> 的逆操作</p>
+</li>
+<li>
+<p><code>==</code> 用于判断两个变量引用对象的值是否相等</p>
+</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs text">&gt;&gt;&gt; a = 1000<br>&gt;&gt;&gt; b = a<br>&gt;&gt;&gt; id(a) == id(b)<br>True<br>&gt;&gt;&gt; a is b<br>True<br>&gt;&gt;&gt; a is not b<br>False<br>&gt;&gt;&gt; a == b<br>True<br>&gt;&gt;&gt; a = 1000<br>&gt;&gt;&gt; b = 1000<br>&gt;&gt;&gt; id(a) == id(b)<br>False<br>&gt;&gt;&gt; a is b<br>False<br>&gt;&gt;&gt; a is not b<br>True<br>&gt;&gt;&gt; a == b<br>True<br></code></pre></td></tr></table></figure>
+<h2 id="ii-赋值赋值还是赋值"><a class="markdownIt-Anchor" href="#ii-赋值赋值还是赋值"></a> II. 赋值！赋值！还是赋值！</h2>
+<p>明白了Python里面变量跟对象的引用关系，我们可以来到本文最重要的一节，理解Python的赋值操作，这对于理解Python一些看似迷糊的行为至关重要！</p>
+<h3 id="1-狡猾的"><a class="markdownIt-Anchor" href="#1-狡猾的"></a> 1. 狡猾的 “=”</h3>
+<p>Python里的赋值操作是一个等号“=”，由于从小接受数学的熏陶，等号“=”这一表象成为了理解赋值操作的绝佳陷阱。要理解Python里的赋值操作，第一件事就是在看到 <code>A = B</code> 时在脑子里自动转化为 <code>B --&gt; A</code>，这么做的原因就在于可以突出赋值操作的方向性！ “=”的迷惑性在于它是一个很对称的符号，只看“=”是看不出方向性的，等号在数学上表达的是两边相等，自然不需要方向性，但是Python里的赋值是有方向性的，即从右边的对象到左边的变量；更糟糕的是，我们大都习惯了从左向右阅读，这跟赋值的方向性是相悖的，可恶啊，狡猾的“=”。</p>
+<p>从 <code>A = B</code> 到 <code>B --&gt; A</code> ！</p>
+<p>从 <code>A = B</code> 到 <code>B --&gt; A</code> ！</p>
+<p>从 <code>A = B</code> 到 <code>B --&gt; A</code> ！</p>
+<h3 id="2-可变对象和不可变对象"><a class="markdownIt-Anchor" href="#2-可变对象和不可变对象"></a> 2. 可变对象和不可变对象</h3>
+<p>Python里的对象分为可变对象和不可变对象。顾名思义，可变对象就是可以修改的对象，不可变对象就是不可修改的对象。套用之前形象的说法，可变对象就是出厂后用户可以 DIY 的商品；不可变对象就是出厂后直接“焊死”的商品，厂家态度强硬，用户原封不动地用可以，改我的商品没门！</p>
+<p>Python里常见的可变对象有列表 list、字典 dict、集合 set，不可变对象有数值类型 (int、float 等)、字符串 str、元组 tuple。</p>
+<h3 id="3-结合代码理解赋值"><a class="markdownIt-Anchor" href="#3-结合代码理解赋值"></a> 3. 结合代码理解赋值</h3>
+<p>基于以上内容，下面通过几个简单的代码示例来深入理解Python的引用和赋值机制。</p>
+<h4 id="示例-1"><a class="markdownIt-Anchor" href="#示例-1"></a> 示例 (1)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = <span class="hljs-string">&quot;hello world&quot;</span><br>b = a<br>a = <span class="hljs-string">&quot;hello python&quot;</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">2087479844912 || a: hello python<br>2087479809520 || b: hello world<br>a is b: False<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = &quot;hello world&quot;</code>：即 <code>&quot;hello world&quot; --&gt; a</code>，首先创建不可变字符串对象“hello world”，再创建变量 a，并把 a 指向字符串对象“hello world”</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的字符串对象“hello world”，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a = &quot;hello python&quot;</code>：即 <code>&quot;hello python&quot; --&gt; a</code>，首先会创建新字符串“hello python”，然后把新字符串“hello python”的地址赋予 a (即，a 指向字符串“hello python”)，此时，b 依然指向原字符串“hello world”，即，a 和 b 指向不同的对象</p>
+</li>
+</ol>
+<h4 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例 (2)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>b = a<br>a = [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">2700523754376 || a: [4, 5, 6]<br>2700523753864 || b: [1, 2, 3]<br>a is b: False<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = [1, 2, 3]</code>：即 <code>[1, 2, 3] --&gt; a</code>，首先创建可变列表对象 [1, 2, 3] ，再创建变量 a，并把 a 指向列表对象 [1, 2, 3]</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的列表对象 [1, 2, 3]，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a = [4, 5, 6]</code>：即 <code>[4, 5, 6] --&gt; a</code>，首先会创建新列表 [4, 5, 6]，然后把新列表 [4, 5, 6]的地址赋予 a (即，a 指向列表 [4, 5, 6])，此时，b 依然指向原列表 [1, 2, 3]，即，a 和 b 指向不同的对象</p>
+</li>
+</ol>
+<p>注：示例 (2) 中把 <code>a = [4, 5, 6]</code> 替换为 <code>a = [1, 2, 3]</code> 有同样的效果。</p>
+<h4 id="示例-3"><a class="markdownIt-Anchor" href="#示例-3"></a> 示例 (3)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = <span class="hljs-string">&quot;hello world&quot;</span><br>b = a<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Before adding&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br><br>a = <span class="hljs-string">&quot;hello world&quot;</span> + <span class="hljs-string">&quot; python&quot;</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After adding&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">Before adding<br>2017334072880 || a: hello world<br>2017334072880 || b: hello world<br>a is b: True<br>After adding<br>2017334844192 || a: hello world python<br>2017334072880 || b: hello world<br>a is b: False<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = &quot;hello world&quot;</code>：即 <code>&quot;hello world&quot; --&gt; a</code>，首先创建不可变字符串对象“hello world”，再创建变量 a，并把 a 指向字符串对象“hello world”</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的字符串对象“hello world”，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a = &quot;hello world&quot; + &quot; python&quot;</code>：即 <code>&quot;hello world&quot; + &quot; python&quot; --&gt; a</code>，这一行代码实际上做了两件事，“+”代表的字符串连接操作，和“=”代表的赋值操作。首先执行的是“+”，字符串连接不会直接更改原字符串，而是新创建一个字符串保存连接后的结果；“+”之后，内存中有两个字符串对象“hello world”和“hello world python”，以及两个变量 a 和 b，并且此时 a 和 b 都指向字符串对象“hello world”；之后是赋值操作“=”，把新字符串“hello world python”的地址赋予 a (即，a 指向字符串“hello world python”)，此时，b 依然指向原字符串“hello world”，即，a 和 b 指向不同的对象</p>
+</li>
+</ol>
+<h4 id="示例-4"><a class="markdownIt-Anchor" href="#示例-4"></a> 示例 (4)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>b = a<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Before a.append()&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br><br>a = a + [<span class="hljs-number">4</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After a.append()&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">Before a.append()<br>Before a.append()<br>1555554062728 || a: [1, 2, 3]<br>1555554062728 || b: [1, 2, 3]<br>a is b: True<br>After a.append()<br>1555561513992 || a: [1, 2, 3, 4]<br>1555554062728 || b: [1, 2, 3]<br>a is b: False<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = [1, 2, 3]</code>：即 <code>[1, 2, 3] --&gt; a</code>，首先创建可变列表对象 [1, 2, 3] ，再创建变量 a，并把 a 指向列表对象 [1, 2, 3]</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的列表对象 [1, 2, 3]，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a = a + [4]</code>：即 <code>a + [4] --&gt; a</code>，这一行代码实际上做了两件事，“+”代表的列表连接操作，和“=”代表的赋值操作。首先执行的是“+”，列表连接不会直接更改原列表，而是新创建一个列表保存连接后的结果；“+”之后，内存中有两个列表对象 [1, 2, 3] 和 [1, 2, 3, 4]，以及两个变量 a 和 b，并且此时 a 和 b 都指向列表对象 [1, 2, 3]；之后是赋值操作“=”，把新字符串 [1, 2, 3, 4] 的地址赋予 a (即，a 指向字符串 [1, 2, 3, 4])，此时，b 依然指向原字符串 [1, 2, 3]，即，a 和 b 指向不同的对象</p>
+</li>
+</ol>
+<h4 id="示例-5"><a class="markdownIt-Anchor" href="#示例-5"></a> 示例 (5)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = <span class="hljs-string">&quot;hello world&quot;</span><br>b = a<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Before adding&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br><br>a.replace(<span class="hljs-string">&#x27;world&#x27;</span>, <span class="hljs-string">&#x27;python&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After adding&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">Before adding<br>2303166191152 || a: hello world<br>2303166191152 || b: hello world<br>a is b: True<br>After adding<br>2303166191152 || a: hello world<br>2303166191152 || b: hello world<br>a is b: True<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = &quot;hello world&quot;</code>：即 <code>&quot;hello world&quot; --&gt; a</code>，首先创建不可变字符串对象“hello world”，再创建变量 a，并把 a 指向字符串对象“hello world”</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的字符串对象“hello world”，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a.replace('world', 'python')</code>：这一步不是赋值操作，由于字符串对象不可改变，这一操作会在新的地址新建一个字符串来保存字符串替代后的结果“hello python”，但是由于没有赋值操作，这一结果的地址并没有保存在某个变量里，此时 a 和 b 依然指向原不可变字符串“hello world”</p>
+</li>
+</ol>
+<h4 id="示例-6"><a class="markdownIt-Anchor" href="#示例-6"></a> 示例 (6)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>b = a<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Before a.append()&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br><br>a.append(<span class="hljs-number">4</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After a.append()&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">Before a.append()<br>1464960569736 || a: [1, 2, 3]<br>1464960569736 || b: [1, 2, 3]<br>a is b: True<br>After a.append()<br>1464960569736 || a: [1, 2, 3, 4]<br>1464960569736 || b: [1, 2, 3, 4]<br>a is b: True<br></code></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><code>a = [1, 2, 3]</code>：即 <code>[1, 2, 3] --&gt; a</code>，首先创建可变列表对象 [1, 2, 3] ，再创建变量 a，并把 a 指向列表对象 [1, 2, 3]</p>
+</li>
+<li>
+<p><code>b = a</code>：即 <code>a --&gt; b</code>，创建变量 b，并把 b 指向 a 指向的列表对象 [1, 2, 3]，在这之后，a 和 b 指向同一个对象</p>
+</li>
+<li>
+<p><code>a.append(4)</code>：这一步不是赋值操作，<code>a.append()</code> 会直接修改变量 a 指向的可变对象 [1, 2, 3]，修改之后，变量 a 指向的对象变为 [1, 2, 3, 4]，由于 a 和 b 指向同一个可变对象，b 指向的对象自然也变为 [1, 2, 3, 4]</p>
+</li>
+</ol>
+<h4 id="小节"><a class="markdownIt-Anchor" href="#小节"></a> 小节</h4>
+<p>可以看到，可变对象和不可变对象的赋值操作有较大差异，但是归根结底还是有迹可循的，即，赋值操作“=”会不会“连带”改变多个变量，取决于“=”右边的操作是<strong>直接修改原对象</strong>还是<strong>创建新的对象</strong>来保存表达式结果！如果“=”右边直接修改原对象，则指向这一对象的所有变量都会发生同样的改变；如果“=”右边创建了新的对象保存结果，则只会改变“=”左边的那个变量，其他变量依然指向原对象。</p>
+<p>具体来说，不可变对象由于不可改变，对于指向其的变量的任何操作都会新建一个新的对象并修改原变量的引用；可变对象由于可以改变，对于指向其的变量的操作则要稍显复杂，如果是修改原可变对象，则会连带改变指向这一可变对象的所有变量，如果是新建一个对象，则不会在多个变量之间“共享”操作。</p>
+<p>继续套用之前形象的说法，我们有两个标签 a, b 挂在同一个商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> 上，此时，标签 a 和标签 b 都代表商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>。</p>
+<p>这时一个人说“我要修改标签 a 对应的商品”，他的做法是，首先顺藤摸瓜找到了标签 a 对应的商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>，然后对着 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> 一顿敲打，好家伙，失手了，商品贬值。因为标签 b 也挂在同一个商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> 上，b 自然也跟 a 一样共享了变化。</p>
+<p>同样的情况，另一个人说“我要修改标签 a 对应的商品”，他的做法是新造了另一个商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span>，然后把标签 a 挂到商品 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> 上了，这种情况下，不管 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> 是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> 的衍生产品还是另一个完全不同的新产品，标签 b 由于依然挂在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> 上，自然不会跟标签 a 一样改变。</p>
+<h3 id="4-python的对象复用机制"><a class="markdownIt-Anchor" href="#4-python的对象复用机制"></a> 4. Python的对象复用机制</h3>
+<p>以下是一段和<a href="">示例 (1)</a>类似的代码，但是这段代码呈现不同的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = <span class="hljs-string">&quot;abc&quot;</span><br>b = a<br>a = <span class="hljs-string">&quot;abc&quot;</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || a: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(a), val=a))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;id&#125; || b: &#123;val&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>(b), val=b))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">1270154034160 || a: abc<br>1270154034160 || b: abc<br>a is b: True<br></code></pre></td></tr></table></figure>
+<p>我们可以发现，第二次出现的 <code>a = &quot;abc&quot;</code> 并没有新建一个字符串，而是复用了之前的字符串，两者相同的标识符可以证明这一点;把字符串替换为某些整形数字也有相同的发现，但是<a href="">示例 (2)</a>中我提到“<em>注：示例 (2) 中把 a = [4, 5, 6] 替换为 a = [1, 2, 3] 有同样的效果</em>”，难道Python只会复用不可变对象？</p>
+<p>不完全对，正确的说法是，在Python中，对于部分不可变对象存在着复用机制。具体来说，处于-5~256之间的整型数据对象以及部分字符串对象有着复用机制，同样是不可变对象的元组则没有复用机制。之所以说只有部分字符串有复用机制是因为有一些特例，比如当字符串足够长的时候，Python在赋值时不会复用字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = <span class="hljs-string">&quot;abc&quot;</span> * <span class="hljs-number">10000</span><br>b = a<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br>a = <span class="hljs-string">&quot;abc&quot;</span> * <span class="hljs-number">10000</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a is b: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(a <span class="hljs-keyword">is</span> b))<br></code></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">a is b: True<br>a is b: False<br></code></pre></td></tr></table></figure>
+<p>我认为，既然不可变对象不可改变，那么不修改对象而仅仅是使用对象时，只要对象的值相同则，无所谓到底是同一个对象还是两个同值的对象；而对不可变对象的修改必然会创建新的对象，也就不会再存在两个变量引用同一个不可变对象，也不必担心因此可能产生的 bug。所以我觉得Python对于部分不可变对象的复用机制了解即可，绝大多数情况下这一机制不会造成运算结果的不同。以上仅是我个人的看法，目前我没有深入探究这一机制，欢迎讨论。</p>
+<h3 id="5-python中的参数传递"><a class="markdownIt-Anchor" href="#5-python中的参数传递"></a> 5. Python中的参数传递</h3>
+<p>首先，Python中的方法或者说函数的主要作用在于代码复用，这样可以避免重复代码并提高代码可读性。比如，以下两段代码等价</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-keyword">return</span> ((a - b) / (a + b)) * a - b<br><br>r1 = fn(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>r2 = fn(<span class="hljs-number">40</span>, <span class="hljs-number">60</span>)<br>r3 = fn(<span class="hljs-number">12</span>, <span class="hljs-number">512</span>)<br>r1 = fn(<span class="hljs-number">18</span>, <span class="hljs-number">25</span>)<br>r2 = fn(<span class="hljs-number">28</span>, <span class="hljs-number">38</span>)<br>r3 = fn(<span class="hljs-number">78</span>, <span class="hljs-number">5</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python">a, b = <span class="hljs-number">1</span>, <span class="hljs-number">2</span><br>r1 = ((a - b) / (a + b)) * a - b<br>a, b = <span class="hljs-number">40</span>, <span class="hljs-number">60</span><br>r2 = ((a - b) / (a + b)) * a - b<br>a, b = <span class="hljs-number">12</span>, <span class="hljs-number">512</span><br>r3 = ((a - b) / (a + b)) * a - b<br>a, b = <span class="hljs-number">18</span>, <span class="hljs-number">25</span><br>r1 = ((a - b) / (a + b)) * a - b<br>a, b = <span class="hljs-number">28</span>, <span class="hljs-number">38</span><br>r2 = ((a - b) / (a + b)) * a - b<br>a, b = <span class="hljs-number">78</span>, <span class="hljs-number">5</span><br>r3 = ((a - b) / (a + b)) * a - b<br></code></pre></td></tr></table></figure>
+<p>所谓的函数参数传递也就是把实参赋值给形参，本质上也是赋值操作“=”，因此，大家同样用看待赋值的方法看待Python的传参即可，这里不再赘述，仅提供几个简单的代码示例便于理解。</p>
+<h4 id="示例-7"><a class="markdownIt-Anchor" href="#示例-7"></a> 示例 (7)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">var</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br>    var = <span class="hljs-number">2</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br><br><br>a = <span class="hljs-number">1</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=a, identity=<span class="hljs-built_in">id</span>(a)))<br>fn(a)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=a, identity=<span class="hljs-built_in">id</span>(a)))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">1, 140703503524256<br>1, 140703503524256<br>2, 140703503524288<br>1, 140703503524256<br></code></pre></td></tr></table></figure>
+<p>这段代码把 a 作为参数传递给函数，这时 a 和 var 都指向内存中值为 1 的对象。然后在函数中 <code>var = 2</code> 时，因为 int 对象不可改变，于是创建一个新的 int 对象 (值为2 ) 并且令 var 指向它。而 a 仍然指向原来的值为 1 的 int 对象，所以函数没有改变变量 a</p>
+<h4 id="示例-8"><a class="markdownIt-Anchor" href="#示例-8"></a> 示例 (8)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">var</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br>    var.append(<span class="hljs-number">1</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br><br><br>b = []<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=b, identity=<span class="hljs-built_in">id</span>(b)))<br>fn(b)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=b, identity=<span class="hljs-built_in">id</span>(b)))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">[], 2886722054152<br>[], 2886722054152<br>[1], 2886722054152<br>[1], 2886722054152<br></code></pre></td></tr></table></figure>
+<p>这段代码把 b 作为参数传递给函数，这时 b 和 var 都会指向同一个值为 [] 的 list 类型的对象。因为 list 对象是可以改变的，函数中使用 <code>append()</code> 在其末尾添加了一个元素，list 对象的内容发生了改变，但是 b 和 var 仍然是指向这一个 list 对象，所以变量 b 的内容也发生了改变</p>
+<h4 id="示例-9"><a class="markdownIt-Anchor" href="#示例-9"></a> 示例 (9)</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">var</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br>    var = var + [<span class="hljs-number">1</span>]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=var, identity=<span class="hljs-built_in">id</span>(var)))<br><br><br>c = []<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=c, identity=<span class="hljs-built_in">id</span>(c)))<br>fn(c)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;value&#125;, &#123;identity&#125;&quot;</span>.<span class="hljs-built_in">format</span>(value=c, identity=<span class="hljs-built_in">id</span>(c)))<br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text"># [], 2539980280200<br># [], 2539980280200<br># [1], 2539984060808<br># [], 2539980280200<br></code></pre></td></tr></table></figure>
+<p>这段代码把 c 作为参数传递给函数，这时 c 和 var 都会指向同一个值为 [] 的 list 类型的对象。再看函数中的赋值操作 <code>var = var + [1]</code>，“=”右边会先创建一个新的list类型的对象 (值为 [1] )并且令 var 指向它，而 c 仍然指向原来的值为 [] 的 list 对象，所以函数没有改变变量 c</p>
+<p>综上，Python的传参不像C++，既不是严格的值传递，也不是严格的引用传递，要结合Python的赋值操作来理解。</p>
+<h2 id="iii-赋值-浅拷贝和深度拷贝"><a class="markdownIt-Anchor" href="#iii-赋值-浅拷贝和深度拷贝"></a> III. 赋值、浅拷贝和深度拷贝</h2>
+<p>直接上思维导图</p>
+<div align="center">
+    <img src="imgs/III.png" srcset="/img/loading.gif" lazyload width="90%" height="90%" vspace=0>
+    <h6>Fig. III. 赋值、浅拷贝和深度拷贝</h6>
+</div>
+<p>示例程序如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> copy<br><br>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>]]<br><br>b = a<br>c = copy.copy(a)<br>d = copy.deepcopy(a)<br><br>a.append(<span class="hljs-number">5</span>)<br>a[<span class="hljs-number">4</span>].append(<span class="hljs-string">&#x27;c&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;a = &#x27;</span>, a)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;b = &#x27;</span>, b)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = &#x27;</span>, c)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;d = &#x27;</span>, d)<br><br><span class="hljs-comment"># a =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;], 5]</span><br><span class="hljs-comment"># b =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;], 5]</span><br><span class="hljs-comment"># c =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]]</span><br><span class="hljs-comment"># d =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;]]</span><br></code></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">a =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;], 5]<br>b =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;], 5]<br>c =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]]<br>d =  [1, 2, 3, 4, [&#x27;a&#x27;, &#x27;b&#x27;]]<br></code></pre></td></tr></table></figure>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_13597899/5328327">Python学习笔记之函数参数传递传值还是传引用</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265179766#:~:text=1%20%E5%9C%A8Python%E4%B8%AD%EF%BC%8C%E4%BB%8E,%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%8C%E5%8D%B3%E5%BC%95%E7%94%A8%E3%80%82">Python彻底搞懂：变量、对象、赋值、引用、拷贝</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94/" class="category-chain-item">科研</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/" class="category-chain-item">程序员</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A7%91%E7%A0%94/%E7%A8%8B%E5%BA%8F%E5%91%98/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98/">#程序员</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>动手理解Python的引用、赋值、拷贝</div>
+      <div>https://zray111.github.io/2022/11/10/动手理解Python的引用、赋值、拷贝/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZRay</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                <i class="iconfont icon-sa"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/28/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%A2%8E%E5%BF%B5-1/" title="生活碎碎念-1">
+                        <span class="hidden-mobile">生活碎碎念-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.17/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"WVtRgJMmrXec24ZpDhSPOyVX-gzGzoHsz","appKey":"Xi5CghXDNJYmFDkEENPyopre","path":"window.location.pathname","placeholder":"留言仅限讨论，请勿发布无关内容","avatar":"retro","meta":["nick","mail","link"],"requiredFields":["nick"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
